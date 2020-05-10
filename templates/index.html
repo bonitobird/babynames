@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Baby Names</title>
+{% endblock %}
+
+{% block body %}
+<br>
+<h1>Baby Names</h1>
+<br>
+
+<!-- <div class="jumbotron">
+    <div class="col-sm-8 mx-auto">
+        <h1>Welcome!</h1>
+        <p> Interested in how many babies have been given a certain name each year? </p>
+        <p> You have come to the right place. </p>
+        <a class="btn btn-primary" href="/about" role="button">Go to about &raquo;</a>
+        <br>
+        <br>
+    </div>
+</div> -->
+
+<form action='/' method='POST'>
+    <label for="title">Name:</label>
+    {% if input_name is defined %}
+        <input class="form-control" type="text" name='name' id='name' placeholder="{{ input_name }}" aria-label="{{ input_name }}">
+    {% else %}
+        <input class="form-control" type="text" name='name' id='name' placeholder="Enter Name" aria-label="Enter Name">
+    {% endif %}
+    <br>
+</form>
+
+<!-- <form action='/' method='POST'>
+    <label for="title">
+        Year of Interest: 
+        <br>
+        <small>(1880-2019)</small>
+    </label>
+    {% if input_year is defined %}
+        <input class="form-control" type="text" name='year' id='year' placeholder="{{ input_year }}" aria-label="{{ input_year }}">
+    {% else %}
+        <input class="form-control" type="text" name='year' id='year' placeholder="Enter Year" aria-label="Enter Year">
+    {% endif %}
+    <br>
+</form> -->
+
+
+{% if plot %}
+    <div class="container">
+        <div>
+            <img src="{{url_for('static', filename='plot.png')}}" width=100%>
+        </div>
+    </div>
+{% endif %}
+
+
+{% endblock %}
