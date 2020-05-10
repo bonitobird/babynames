@@ -1,1 +1,6 @@
 pandas
+glob
+os
+re
+matplotlib
+flask
