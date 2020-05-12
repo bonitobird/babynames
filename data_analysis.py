@@ -5,6 +5,7 @@ import re
 import matplotlib
 matplotlib.use('Agg')
 import matplotlib.pyplot as plt
+# import h5py
 
 """ Prepping some functions """
 # Read multiple files into one dataframe whilst adding custom columns
@@ -22,18 +23,24 @@ def natural_sort_key2(s):
 
 """ Import baby name files """
 def name_plot(n):
+    n = n.lower()
+    n = n.capitalize()
     years = list(range(1880, 2019, 1))
 
-    df = pd.DataFrame()
+    # df = pd.DataFrame()
 
-    path_base = 'namesnational' # use your base path
-    all_files = glob.glob(os.path.join('namesnational', "*.txt"))
-    all_files = sorted(all_files, key=natural_sort_key2)
-    year_index = 0
-    for f in all_files:
-        df = pd.concat([df, my_csv_reader(f, years[year_index])], ignore_index = True)
-        year_index += 1
-
+    # path_base = 'namesnational' # use your base path
+    # all_files = glob.glob(os.path.join('namesnational', "*.txt"))
+    # all_files = sorted(all_files, key=natural_sort_key2)
+    # year_index = 0
+    # for f in all_files:
+    #     df = pd.concat([df, my_csv_reader(f, years[year_index])], ignore_index = True)
+    #     year_index += 1
+    # export_csv = df.to_csv('all_names_db.csv', index=None, header=True)
+    
+    # export_hdf5 = df.to_hdf('all_names.h5', key='df', mode='w')
+    df = pd.read_hdf('all_names.h5', 'df')
+    
     """ Create df with just one name """
     # Look up specifics for name and year of interest across both genders
     genders = ['M', 'F']
@@ -63,30 +70,42 @@ def name_plot(n):
         ax = df_onename[0].plot(x = "Year", y = "Quantity", 
                                     figsize=(20,10), fontsize=fontsize, 
                                     legend = False, ax=ax, 
-                                    linestyle='-', marker='o', color='blue')
+                                    linestyle='-', marker='o', color='blue', label='boys')
     if not df_onename[1].empty:
         df_onename[1].plot(x = "Year", y = "Quantity", 
                                     figsize=(20,10), fontsize=fontsize, 
                                     legend = False, ax=ax, 
-                                    linestyle='-', marker='o', color='pink')
-    # ax.minorticks_on()
+                                    linestyle='-', marker='o', color='pink', label='girls')
+    ax.minorticks_on()
+    ax.legend(fontsize=fontsize*0.75)
     ax.set_title('Quantity of '+ n +"'s per year", fontsize=fontsize)
     ax.set_xlabel("Year", fontsize=fontsize)
     ax.set_ylabel("Number of babies", fontsize=fontsize)
-    # ax.figure.savefig('static/plot_' + str(n) +'.png', format = "PNG", bbox_inches = 'tight', pad_inches = 0)
-    ax.figure.savefig('static/plot.png', format = "PNG", bbox_inches = 'tight', pad_inches = 0)
-    ax.grid('on', which='minor', axis='x' )
-    ax.grid('on', which='major', axis='x' )
-    ax.grid('on', which='minor', axis='y' )
-    ax.grid('on', which='major', axis='y' )
+
     ax.set_ylim(ymin=0)
-    ax.xaxis.set_major_locator(plt.NullLocator())
-    ax.yaxis.set_major_locator(plt.NullLocator())
-    # print('done')
+    ax.set_xlim(xmin=1880, xmax=2020)
 
     # # Customize the major grid
-    ax.grid(which='major', linestyle=':', linewidth='0.5', color='gray')
+    ax.grid(which='major', linestyle='-', linewidth='0.5', color='black')
     # # Customize the minor grid
-    ax.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
+    ax.grid(which='minor', linestyle='--', linewidth='0.5', color='gray')
+    
+    ax.figure.savefig('static/plot.png', format = "PNG", bbox_inches = 'tight', pad_inches = 0.1)
+    
+    # # Customize the major grid
+    # ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
+    # # Customize the minor grid
+    # ax.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
 
-    return ("plot_" + str(n) + '.png')
+    # ax.grid('on', which='minor', axis='x' )
+    # ax.grid('on', which='major', axis='x' )
+    # ax.grid('on', which='minor', axis='y' )
+    # ax.grid('on', which='major', axis='y' )
+
+
+
+    # print('done')
+
+
+
+    return (True)
