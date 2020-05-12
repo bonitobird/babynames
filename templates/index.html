@@ -22,11 +22,12 @@
 
 <form action='/' method='POST'>
     <label for="title">Name:</label>
-    {% if input_name is defined %}
+    <input class="form-control" type="text" name='name' id='name' placeholder="Enter Name" aria-label="Enter Name">
+    <!-- {% if input_name is defined %}
         <input class="form-control" type="text" name='name' id='name' placeholder="{{ input_name }}" aria-label="{{ input_name }}">
     {% else %}
         <input class="form-control" type="text" name='name' id='name' placeholder="Enter Name" aria-label="Enter Name">
-    {% endif %}
+    {% endif %} -->
     <br>
 </form>
 
