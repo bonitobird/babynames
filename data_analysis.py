@@ -61,51 +61,57 @@ def name_plot(n):
     #     tot_num_since = df_onename_since[i]['Quantity'].sum(axis = 0, skipna = True)
     #     # print('Number of '+ g + ' ' + n + "'s born since " + str(birth_year) + ' = ' + str(tot_num_since))
 
-    """ Create plot """
-    plt.ioff() # this prevents the plots from rendering below
+    # Check to see if any instances of the name were found
+    if df_onename[0].empty and df_onename[1].empty:
+        return False
+    else:
 
-    fig, ax = plt.subplots()
-    fontsize = 30
-    if not df_onename[0].empty:
-        ax = df_onename[0].plot(x = "Year", y = "Quantity", 
-                                    figsize=(20,10), fontsize=fontsize, 
-                                    legend = False, ax=ax, 
-                                    linestyle='-', marker='o', color='blue', label='boys')
-    if not df_onename[1].empty:
-        df_onename[1].plot(x = "Year", y = "Quantity", 
-                                    figsize=(20,10), fontsize=fontsize, 
-                                    legend = False, ax=ax, 
-                                    linestyle='-', marker='o', color='pink', label='girls')
-    ax.minorticks_on()
-    ax.legend(fontsize=fontsize*0.75)
-    ax.set_title('Quantity of '+ n +"'s per year", fontsize=fontsize)
-    ax.set_xlabel("Year", fontsize=fontsize)
-    ax.set_ylabel("Number of babies", fontsize=fontsize)
+        """ Create plot """
+        plt.ioff() # this prevents the plots from rendering below
 
-    ax.set_ylim(ymin=0)
-    ax.set_xlim(xmin=1880, xmax=2020)
+        fig, ax = plt.subplots()
+        fontsize = 30
+        if not df_onename[0].empty:
+            ax = df_onename[0].plot(x = "Year", y = "Quantity", 
+                                        figsize=(20,10), fontsize=fontsize, 
+                                        legend = False, ax=ax, 
+                                        linestyle='-', marker='o', color='blue', label='boys')
+        if not df_onename[1].empty:
+            df_onename[1].plot(x = "Year", y = "Quantity", 
+                                        figsize=(20,10), fontsize=fontsize, 
+                                        legend = False, ax=ax, 
+                                        linestyle='-', marker='o', color='pink', label='girls')
+        ax.minorticks_on()
+        ax.legend(fontsize=fontsize*0.75)
+        ax.set_title('Quantity of '+ n +"'s per year", fontsize=fontsize)
+        ax.set_xlabel("Year", fontsize=fontsize)
+        ax.set_ylabel("Number of babies", fontsize=fontsize)
 
-    # # Customize the major grid
-    ax.grid(which='major', linestyle='-', linewidth='0.5', color='black')
-    # # Customize the minor grid
-    ax.grid(which='minor', linestyle='--', linewidth='0.5', color='gray')
-    
-    ax.figure.savefig('static/plot.png', format = "PNG", bbox_inches = 'tight', pad_inches = 0.1)
-    
-    # # Customize the major grid
-    # ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
-    # # Customize the minor grid
-    # ax.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
+        ax.set_ylim(ymin=0)
+        ax.set_xlim(xmin=1880, xmax=2020)
 
-    # ax.grid('on', which='minor', axis='x' )
-    # ax.grid('on', which='major', axis='x' )
-    # ax.grid('on', which='minor', axis='y' )
-    # ax.grid('on', which='major', axis='y' )
+        # # Customize the major grid
+        ax.grid(which='major', linestyle='-', linewidth='0.5', color='black')
+        # # Customize the minor grid
+        ax.grid(which='minor', linestyle='--', linewidth='0.5', color='gray')
+        
+        ax.figure.savefig('static/plot.png', format = "PNG", bbox_inches = 'tight', pad_inches = 0.1)
+        
+        plt.close('all')
+        # # Customize the major grid
+        # ax.grid(which='major', linestyle='-', linewidth='0.5', color='red')
+        # # Customize the minor grid
+        # ax.grid(which='minor', linestyle=':', linewidth='0.5', color='black')
+
+        # ax.grid('on', which='minor', axis='x' )
+        # ax.grid('on', which='major', axis='x' )
+        # ax.grid('on', which='minor', axis='y' )
+        # ax.grid('on', which='major', axis='y' )
 
 
 
-    # print('done')
+        # print('done')
 
 
 
-    return (True)
+        return (True)

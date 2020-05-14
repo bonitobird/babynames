@@ -52,6 +52,12 @@
             <img src="{{url_for('static', filename='plot.png')}}" width=100%>
         </div>
     </div>
+{% else %}
+    <div class='container'>
+        <div>
+            <p style="color: red;"> * In the US, this name has not been given to more than 5 boys or 5 girls in a calendar year since 1880.</h2>
+        </div>
+    </div>
 {% endif %}
 
 
